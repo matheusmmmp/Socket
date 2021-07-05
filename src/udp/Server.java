@@ -8,6 +8,8 @@ package udp;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,9 +37,10 @@ public class Server {
                 if(message.equalsIgnoreCase("exit")) {
                     exit = true;
                 }
-                
-                System.out.println("Mensagem Recebida: "+message+" do Cliente "+
-                  datagram.getAddress()+":"+datagram.getPort());
+                   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+                   LocalDateTime now = LocalDateTime.now();  
+                   System.out.println("Cliente: "+message+" Hora:"+ dtf.format(now) +" Endereço:"+
+                   datagram.getAddress()+":"+datagram.getPort());
             }while(!exit);
             
             socket.close();

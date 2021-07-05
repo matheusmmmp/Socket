@@ -15,7 +15,7 @@ import java.net.Socket;
 public class ThreadCliente extends Thread{
     
     private Socket socket_clie;
-
+    int cont = 0;
   public ThreadCliente(Socket cliente) {
 
     this.socket_clie = cliente; 
@@ -24,10 +24,14 @@ public class ThreadCliente extends Thread{
   public void run() {
 
     try {
+       
         System.out.println("Recebendo mensagem de "+ socket_clie.getInetAddress().getHostName()+":"+socket_clie.getPort());
         DataInputStream dataInput = new DataInputStream(socket_clie.getInputStream());
         String data = dataInput.readUTF();
-        System.out.println("Mensagem recebida do cliente: "+data);
+        cont++;
+        System.out.println(cont); 
+        System.out.println("Mensagem recebida do cliente: "+data+ "CONT = "+cont); 
+        
         DataOutputStream dataOutput = new DataOutputStream(socket_clie.getOutputStream());
         System.out.println("Mensagem a ser enviada para o cliente (echo): "+data);
         dataOutput.writeUTF(data);
